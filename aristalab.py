@@ -1,7 +1,8 @@
-#Program to fetch the output of show version from the switch
+#Program to fetch the output of show version and show bgp summary from the switch
 
 from netmiko import ConnectHandler
 showVersion =  "show version | json"
+showBGP = "show ip bgp summary | json"
 
 eos_device = {
     'device_type': 'arista_eos',
@@ -12,7 +13,8 @@ eos_device = {
 print('Start of program')
 
 d = ConnectHandler(**eos_device)
-output = d.send_command_timing(showVersion)
+showVersionOutput = d.send_command_timing(showVersion)
+showBGPOutput = d.send_command_timings(showBGP)
 
 d.disconnect()
-print(output)
+print(showVersionOutput, showBGPOutput)
